@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Benji</title>
+    <style>
+        * {
+            font-family: "DidactGothic-Regular";
+            color: #4a4a4a;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: grid;
+            grid-template-areas: "head head leaves"
+                                 "text circle leaves";
+            grid-template-rows: 7rem calc(100vh - 7rem);
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        header {
+            grid-area: head;
+        }
+        
+        #text {
+            grid-area: text;
+            padding: 2rem;
+            align-self: center;
+        }
+        
+        #circle {
+            grid-area: circle;
+            text-align: center;
+            align-self: center;
+        }
+        
+        #leaves {
+            grid-area: leaves;
+            background-image: url(leaves.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 4rem 50%;
+        }
+        
+        header {
+            display: flex;
+            align-content: flex-start;
+            align-items: center;
+        }
+        
+        header svg {
+            height: 3.5rem;
+            padding-left: 5rem;
+        }
+        
+        #circle svg{
+            width:70%;
+        }
+        
+        button {
+            border-radius: 6px;
+            background-image: linear-gradient(104deg, #17ead9, #6078ea, #843CF7);
+            background-size: 200% 200%;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            border: none;
+            width: 10rem;
+            height: 3rem;
+            line-height: 3rem;
+            color: #fff;
+            font-size: 1.3rem;
+            margin: 2rem auto;
+            transition: all .3s ease-in-out;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-position: right;
+            box-shadow: 0 1px 30px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media(max-width: 550px) {
+            body {
+                grid-template-areas: "head"
+                                     "circle"
+                                     "text" 
+                                     "leaves";
+                grid-template-rows: 7rem repeat(3, 100vw);
+                grid-template-columns: 1fr;
+            }
+            
+            #leaves {
+                transform: rotate(90deg);
+                margin: 
+            }
+        }
+    </style>
+</head>
+    
+<body>
+<header>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="85px" height="85px" viewBox="0 0 85 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFA7E7" offset="0%"></stop>
+            <stop stop-color="#EA6362" offset="100%"></stop>
+        </linearGradient>
+        <path d="M75.6472741,64.5577997 C98.6656098,64.5577997 111.859776,54.630921 111.859776,43.6962408 C111.859776,32.7615606 98.6656098,24.9598199 75.6472741,24.9598199 C60.3017169,24.9598199 45.8092201,31.4934364 32.1697838,44.5606693 C45.8092201,57.8920895 60.3017169,64.5577997 75.6472741,64.5577997 Z" id="path-2"></path>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#23BCBA" offset="0%"></stop>
+            <stop stop-color="#45E994" offset="100%"></stop>
+        </linearGradient>
+        <path d="M45.8071611,71.9736569 C68.8254969,71.9736569 82.0196632,62.0467782 82.0196632,51.112098 C82.0196632,40.1774178 68.8254969,32.3756771 45.8071611,32.3756771 C30.4616039,32.3756771 15.9691072,38.9092936 2.32967082,51.9765265 C15.9691072,65.3079467 30.4616039,71.9736569 45.8071611,71.9736569 Z" id="path-4"></path>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-87.000000, -6.000000)">
+            <g id="Logo" transform="translate(76.000000, 0.000000)">
+                <g id="Group-2" transform="translate(0.000000, 4.000000)">
+                    <g id="Oval" transform="translate(72.014780, 44.758810) rotate(107.000000) translate(-72.014780, -44.758810) ">
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <path stroke="#FFFFFF" stroke-width="3" d="M75.6472741,66.0577997 C59.8837327,66.0577997 45.0260792,59.2241386 31.1213051,45.6333726 L30.0127806,44.5498816 L31.1320869,43.4775325 C45.0364943,30.1564447 59.8905669,23.4598199 75.6472741,23.4598199 C98.7189316,23.4598199 113.359776,31.3239628 113.359776,43.6962408 C113.359776,56.4993127 98.0211284,66.0577997 75.6472741,66.0577997 Z"></path>
+                    </g>
+                    <g id="Oval" transform="translate(42.174667, 52.174667) rotate(45.000000) translate(-42.174667, -52.174667) ">
+                        <use fill="url(#linearGradient-3)" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <path stroke="#FFFFFF" stroke-width="3" d="M45.8071611,73.4736569 C30.0436197,73.4736569 15.1859663,66.6399958 1.28119211,53.0492298 L0.172667587,51.9657388 L1.29197396,50.8933897 C15.1963813,37.5723019 30.0504539,30.8756771 45.8071611,30.8756771 C68.8788187,30.8756771 83.5196632,38.7398199 83.5196632,51.112098 C83.5196632,63.9151698 68.1810154,73.4736569 45.8071611,73.4736569 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
+<h1>Benji</h1>
+</header>
+<section id="text"><h2>Востаннє ти поливав свого Бенджаміна <span></span></h2><br><h3>Будь із ним обережним, він не любить яскравого сонячного проміння, засухи та перезволоження.</h3></section>
+<section id="circle">
+    <div id="timer">
+        <svg viewbox="0 0 100 100">
+                <path fill="none" stroke-linecap="round" stroke-width="15" stroke="#eee" stroke-dasharray="251.2 1000" d="M50 10
+                         a 40 40 0 0 1 0 80
+                         a 40 40 0 0 1 0 -80">
+                </path>
+                <path fill="none" stroke-linecap="round" stroke-width="15" stroke="url(#grad1)" stroke-dasharray="0 1000" d="M50 10
+                         a 40 40 0 0 1 0 80
+                         a 40 40 0 0 1 0 -80">
+                </path>
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#F54EA2;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FF7676;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <text id="count" x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#4a4a4a">100%</text>
+            </svg>
+    </div>
+    <button class="button" onclick="setTimer(timerTime);">Полити</button>
+</section>
+<section id="leaves"></section>
+<script id="jsbin-javascript">
+
+var timeinterval = setInterval(1000),
+    timerTime = 300000,
+    endTime = localStorage.getItem("time"),
+    button = document.querySelector(".button");
+    
+// set timer into Local Storage of browser
+function setTimer(timer){
+    var date = new Date();
+    var t = date.getTime() + timer;
+    var n = date.getDate();
+    var m = date.getMonth();
+    
+    //turn index of month into humal language
+    function toMonth() {
+        switch(m) {
+            case 0:
+                return "січня";
+                break;
+            case 1:
+                return "лютого";
+                break;
+            case 2:
+                return "березня";
+                break;
+            case 3:
+                return "квітня";
+                break;
+            case 4:
+                return "травня";
+                break;
+            case 5:
+                return "червня";
+                break;
+            case 6:
+                return "липня";
+                break;
+            case 7:
+                return "серпня";
+                break;
+            case 8:
+                return "вересня";
+                break;
+            case 9:
+                return "жовтня";
+                break;
+            case 10:
+                return "листопада";
+                break;
+            case 11:
+                return "грудня";
+                break;
+                }
+    }
+    
+    var month = toMonth();
+    console.log(month);
+    /*var daySpan = document.querySelector("#text h2 span");
+    daySpan.innerHTML = n + "." + m;*/
+    
+    //write data in Local Storage
+    localStorage.setItem("time", JSON.stringify(t));
+    localStorage.setItem("day", JSON.stringify(n));
+    localStorage.setItem("month", month);
+    var endTime = localStorage.getItem("time");
+    clearInterval(timeinterval);
+    initializeClock(endTime);
+    console.log('set');
+}
+    
+// get timer from Local Storage of browser
+function getTimeRemaining(endtime){
+    var t = endtime - Date.parse(new Date());
+    return t;
+}
+
+// updating and animating circle timer
+function initializeClock(endtime){
+  
+    function updateClock(){
+        var t = getTimeRemaining(endtime);
+      
+        function animateCircle() {
+            var circle = document.querySelector('#timer svg path:nth-child(2)');
+            var length = ((circle.getTotalLength())/timerTime)*t;
+            var percentage = Math.floor((length * 100)/(circle.getTotalLength()));
+            document.querySelector('#count').textContent = percentage + "%";
+            
+            var day = localStorage.getItem("day");
+            var month = localStorage.getItem("month");
+            var daySpan = document.querySelector("#text h2 span");
+            daySpan.innerHTML = day + " " + month;
+            
+            circle.style.strokeDasharray = length + " 1000";
+        }
+      
+        animateCircle(); // run animation of circle path
+      
+        if(t.total<=0){
+            clearInterval(timeinterval); // stop the animation and counting
+        }
+    }
+  
+    updateClock(); // run function once at first to avoid delay
+  
+    timeinterval = setInterval(updateClock, 1000); // interval of function updating
+}
+
+initializeClock(endTime);
+    
+</script>
+</body>
+</html>
