@@ -153,7 +153,7 @@
                     <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" style="stop-color:#F54EA2;stop-opacity:1" />
                         <stop offset="100%" style="stop-color:#FF7676;stop-opacity:1" />
-                    </linearGradient>
+                   </linearGradient>
                 </defs>
                 <text id="count" x="50" y="50" text-anchor="middle" dy="7" font-size="20" fill="#4a4a4a">100%</text>
             </svg>
@@ -164,7 +164,7 @@
 <script id="jsbin-javascript">
 
 var timeinterval = setInterval(1000),
-    timerTime = 300000,
+    timerTime = 259200000,
     endTime = localStorage.getItem("time"),
     button = document.querySelector(".button");
     
@@ -260,8 +260,9 @@ function initializeClock(endtime){
       
         animateCircle(); // run animation of circle path
       
-        if(t.total<=0){
-            clearInterval(timeinterval); // stop the animation and counting
+        if(t<=0){
+            clearInterval(timeinterval);// stop the animation and counting
+            document.querySelector('#count').textContent = "Полий!"
         }
     }
   
