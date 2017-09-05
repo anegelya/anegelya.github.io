@@ -38,6 +38,10 @@
             align-self: center;
         }
         
+        #circle svg path{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+        
         #leaves {
             grid-area: leaves;
             background-image: url(leaves.png);
@@ -82,19 +86,76 @@
             box-shadow: 0 1px 30px 2px rgba(0, 0, 0, 0.3);
         }
         
+        .graph {
+            margin-top: 9rem;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .graph span {
+            width: 2rem;
+            height: 100%;
+            line-height: 2rem;
+            color: #999;
+            position: relative;
+            cursor: pointer;
+            padding-left: .1rem;
+        }
+        
+        .graph span::before {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: .3rem;
+            background-color: #f4f4f4;
+            position: absolute;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            top: -.3rem;
+        }
+        
+        span.span-wattered::before {
+            height: 350%;
+            top: -350%;
+            border: none;
+            background-image: linear-gradient(5deg, #38B8F2, #6078EA, #17EAD9);
+            background-size: 100% 300%;
+            transition: all .5s ease-in-out;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        span.span-wattered:hover::before {
+            background-position: bottom right;
+            box-shadow: 0 1px 30px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media(max-width: 1000px) {
+            body {
+                grid-template-areas: "head head"
+                                     "text circle" 
+                                     "leaves leaves";
+                grid-template-rows: 7rem 1fr minmax(min-content,100vw);
+                grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
+            }
+            
+            #leaves {
+                transform: rotate(90deg);
+            }
+        }
+        
         @media(max-width: 550px) {
             body {
                 grid-template-areas: "head"
                                      "circle"
                                      "text" 
                                      "leaves";
-                grid-template-rows: 7rem repeat(3, 100vw);
+                grid-template-rows: 7rem repeat(3, minmax(min-content,100vw));
                 grid-template-columns: 1fr;
             }
             
             #leaves {
-                transform: rotate(90deg);
-                margin: 
+                transform: rotate(90deg); 
             }
         }
     </style>
@@ -137,7 +198,7 @@
 </svg>
 <h1>Benji</h1>
 </header>
-<section id="text"><h2>Востаннє ти поливав свого Бенджаміна <span></span></h2><br><h3>Будь із ним обережним, він не любить яскравого сонячного проміння, засухи та перезволоження.</h3></section>
+<section id="text"><div></div><h2>Востаннє ти поливав свого Бенджаміна <span></span></h2><br><h3>Будь із ним обережним, він не любить яскравого сонячного проміння, засухи та перезволоження.</h3></section>
 <section id="circle">
     <div id="timer">
         <svg viewbox="0 0 100 100">
@@ -169,14 +230,8 @@ var timeinterval = setInterval(1000),
     button = document.querySelector(".button");
     
 // set timer into Local Storage of browser
-function setTimer(timer){
-    var date = new Date();
-    var t = date.getTime() + timer;
-    var n = date.getDate();
-    var m = date.getMonth();
     
-    //turn index of month into humal language
-    function toMonth() {
+function toMonth(m) {
         switch(m) {
             case 0:
                 return "січня";
@@ -215,21 +270,48 @@ function setTimer(timer){
                 return "грудня";
                 break;
                 }
-    }
+}
     
-    var month = toMonth();
-    console.log(month);
-    /*var daySpan = document.querySelector("#text h2 span");
-    daySpan.innerHTML = n + "." + m;*/
+function setTimer(timer){
+    var date = new Date();
+    var t = date.getTime() + timer;
+    var n = date.getDate();
+    var m = date.getMonth();
+    
+    //turn index of month into humal language
+    
+    var month = toMonth(m);
     
     //write data in Local Storage
     localStorage.setItem("time", JSON.stringify(t));
-    localStorage.setItem("day", JSON.stringify(n));
-    localStorage.setItem("month", month);
-    var endTime = localStorage.getItem("time");
+    
+    var benjiObj = {
+        'total time': t,
+        'last water': n + " " + month
+    };
+    
+    
+    
+    localStorage.setItem("benjObj", JSON.stringify(benjiObj));
+    var obj = JSON.parse(localStorage.getItem('benjObj'));
+    
+    var graphicObj = JSON.parse(localStorage.getItem('graphicObj'));
+    
+    if (graphicObj) {
+        graphicObj[n + " " + month] = true;
+        localStorage.setItem("graphicObj", JSON.stringify(graphicObj));
+        console.log(graphicObj);
+    } else {
+        var graphicObj = {};
+        graphicObj[n + " " + month] = true;
+        localStorage.setItem("graphicObj", JSON.stringify(graphicObj));
+        console.log(graphicObj);
+    }
+    
+    
+    var endTime = obj['total time'];
     clearInterval(timeinterval);
     initializeClock(endTime);
-    console.log('set');
 }
     
 // get timer from Local Storage of browser
@@ -238,9 +320,46 @@ function getTimeRemaining(endtime){
     return t;
 }
 
+function createWaterList() {
+    var p = document.createElement("p");
+    p.classList.add('graph');
+    var graphicObj = JSON.parse(localStorage.getItem('graphicObj'));
+    /*for (var key in graphicObj) {
+        var span = document.createElement('span');
+        span.innerHTML = key;
+        p.appendChild(span);
+    }*/
+    
+    console.log(graphicObj);
+    
+    var dayTime = Number(localStorage.getItem('time'));
+    var days = [];
+    for (var i = 10; i >= 1; i--) {
+        days.push(new Date(dayTime - (i*86400000)).getDate() + ' ' + toMonth(new Date(dayTime - (i*86400000)).getMonth()));
+    }
+    
+    days.forEach(function(item, i, arr) {
+        var span = document.createElement('span');
+        
+        if(graphicObj.hasOwnProperty(item)) {
+            span.innerHTML = item.substring(0, 2) + " ";
+            span.classList.add('span-wattered')
+        } else {
+            span.innerHTML = item.substring(0, 2)  + " ";
+        }
+        
+        p.appendChild(span);
+    });
+    
+    console.log(days)
+    
+    var div = document.querySelector('#text div');
+    div.appendChild(p);
+}
+
 // updating and animating circle timer
 function initializeClock(endtime){
-  
+    
     function updateClock(){
         var t = getTimeRemaining(endtime);
       
@@ -250,10 +369,10 @@ function initializeClock(endtime){
             var percentage = Math.floor((length * 100)/(circle.getTotalLength()));
             document.querySelector('#count').textContent = percentage + "%";
             
-            var day = localStorage.getItem("day");
-            var month = localStorage.getItem("month");
+            var obj = JSON.parse(localStorage.getItem('benjObj'));
+            var lastWater = obj['last water'];
             var daySpan = document.querySelector("#text h2 span");
-            daySpan.innerHTML = day + " " + month;
+            daySpan.innerHTML = lastWater;
             
             circle.style.strokeDasharray = length + " 1000";
         }
@@ -271,6 +390,7 @@ function initializeClock(endtime){
     timeinterval = setInterval(updateClock, 1000); // interval of function updating
 }
 
+createWaterList();
 initializeClock(endTime);
     
 </script>
