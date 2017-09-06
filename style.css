@@ -1,0 +1,193 @@
+* {
+    font-family: "DidactGothic-Regular";
+    color: #4a4a4a;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-areas: "head head leaves" "text circle leaves";
+    grid-template-rows: 7rem calc(100vh - 7rem);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+header {
+    grid-area: head;
+}
+
+#text {
+    grid-area: text;
+    padding: 2rem;
+    align-self: center;
+}
+
+#text div p {
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+#text div .visible {
+    opacity: 1;
+}
+
+#circle {
+    grid-area: circle;
+    text-align: center;
+    align-self: center;
+}
+
+#circle svg path {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+#leaves {
+    grid-area: leaves;
+    background-image: url(leaves.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 4rem 50%;
+}
+
+header {
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+}
+
+header svg {
+    height: 3.5rem;
+    padding-left: 5rem;
+}
+
+#perc-circle {
+    stroke: url('#gradient-example');
+}
+
+#perc-circle~defs stop {
+    transition: .5s;
+}
+
+#perc-circle:hover~defs stop:first-child {
+    stop-color: #45E994;
+}
+
+#perc-circle:hover~defs stop:last-child {
+    stop-color: #23BCBB;
+}
+
+#circle svg {
+    width: 70%;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    -webkit-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+#circle svg:hover {
+    -webkit-filter: drop-shadow(0px 1px 10px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0px 1px 10px rgba(0, 0, 0, 0.2));
+}
+
+button {
+    border-radius: 6px;
+    background-image: linear-gradient(104deg, #17ead9, #6078ea, #843CF7);
+    background-size: 200% 200%;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border: none;
+    width: 10rem;
+    height: 3rem;
+    line-height: 3rem;
+    color: #fff;
+    font-size: 1.3rem;
+    margin: 2rem auto;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+button:hover {
+    background-position: right;
+    box-shadow: 0 1px 30px 2px rgba(0, 0, 0, 0.3);
+}
+
+.graph {
+    margin-top: 9rem;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.graph span {
+    width: 2rem;
+    height: 100%;
+    line-height: 2rem;
+    color: #999;
+    position: relative;
+    cursor: pointer;
+    padding-left: .1rem;
+}
+
+.graph span::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: .3rem;
+    background-color: #f4f4f4;
+    position: absolute;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    top: -.3rem;
+}
+
+span.span-wattered::before {
+    height: 350%;
+    top: -350%;
+    border: none;
+    background-image: linear-gradient(5deg, #38B8F2, #6078EA, #17EAD9);
+    background-size: 100% 300%;
+    transition: all .5s ease-in-out;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+span.span-wattered:hover::before {
+    background-position: bottom right;
+    box-shadow: 0 1px 30px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn .5s ease-in 1 forwards;
+}
+
+.is-paused {
+  animation-play-state: paused;
+}
+
+@media(max-width: 1000px) {
+    body {
+        grid-template-areas: "head head" "text circle" "leaves leaves";
+        grid-template-rows: 7rem 1fr minmax(min-content, 100vw);
+        grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
+    }
+    #leaves {
+        transform: rotate(90deg);
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        grid-template-areas: "head" "circle" "text" "leaves";
+        grid-template-rows: 7rem repeat(3, minmax(min-content, 100vw));
+        grid-template-columns: 1fr;
+    }
+    #leaves {
+        transform: rotate(90deg);
+    }
+}
