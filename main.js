@@ -32,7 +32,7 @@ function toMonth(m) {
                 return "серпня";
                 break;
             case 8:
-                return "september";
+                return "вересня";
                 break;
             case 9:
                 return "жовтня";
