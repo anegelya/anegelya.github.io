@@ -173,8 +173,8 @@ span.span-wattered:hover::before {
 @media(max-width: 1000px) {
     body {
         grid-template-areas: "head head" "text circle" "leaves leaves";
-        grid-template-rows: 7rem 1fr .5fr;
-        grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
+        grid-template-rows: 7rem 1fr .7fr;
+        grid-template-columns: 1fr 1fr;
     }
     #leaves {
         background-image: url(leaves-bottom.png);
