@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>scroll</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="scene" id="scene-0">
+    </div>
+
+    <div class="scene" id="scene-1">
+        <img src="./src/img/scene-38.png">
+    </div>
+
+    <div class="scene" id="scene-2">
+    </div>
+
+    <div class="scene" id="scene-3">
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        createScenes(document.querySelector("body"));
+
+        window.onscroll = function (){
+            animateScenes();
+        }
+
+    </script>
+</body>
+</html>
