@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#splitter {
+    width: 5px;
+    height: 100%;
+    left: 50%;
+    position:absolute;
+    background: red;
+    z-index: 101;
+    cursor: ew-resize;
+}
+
+#SPIN1,
+#SPIN2 {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+#SPIN2 {
+    width: 50%;
+}
+
+#SPIN1 img,
+#SPIN2 img {
+    object-fit: cover !important;
+    object-position: 0%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
