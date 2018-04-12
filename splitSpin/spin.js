@@ -5,7 +5,7 @@ function Spin(wrapper, wrapper2, options) {
     this.isMoving = false;
     this.isPaused = false;
     this.isLoaded = false;
-    this.doAfterLoad = false;
+    this.doAfterLoad;
     
     this.wrapper  = wrapper;
     this.wrapper2 = wrapper2;
@@ -18,6 +18,7 @@ function Spin(wrapper, wrapper2, options) {
 
 }
 Spin.prototype = {
+    
     buildHTML: function() {
         
         var _this = this;
@@ -30,27 +31,44 @@ Spin.prototype = {
             
             var img = document.createElement('img'),
                 img2 = document.createElement('img');// create image elements
-            img.src = 'src/src1/'+src+'.jpg';
-            img2.src = 'src/src2/'+src+'.jpg';//set src
+            
             
             this.wrapper.appendChild(img);
             this.wrapper2.appendChild(img2);//append image to wrapper
             
-            img.onload = function() {//trigger function once image loaded
-                _this.loadedSlides += 1;//count loaded images
-                if(_this.loadedSlides == _this.options.nSlides) {//if all images are loaded set spin.isLoaded to true;   
-                    _this.isLoaded = true;
-                    _this.flyTo(0,1);
-                    _this.wrapper.style.opacity = 1;
-                    _this.wrapper2.style.opacity = 1;
-                    if(_this.doAfterLoad) {//if there any functions that was called before images were load it will be stored as spin.doAfterLoad
-                        _this.doAfterLoad();//run function
+            img.decode().then(() => {//trigger function once image loaded
+                if(!_this.isLoaded) {
+                    _this.loadedSlides += 1;//count loaded images
+                    if(_this.loadedSlides == 2*_this.options.nSlides) {//if all images are loaded set spin.isLoaded to true;
+                       if(img.complete) {  
+                            _this.isLoaded = true;
+                            _this.flyTo(0,1);
+                            if(_this.doAfterLoad) {//if there any functions that was called before images were load it will be stored as spin.doAfterLoad
+                                _this.doAfterLoad();//run function
+                            }
+                       }
                     }
                 }
-                    
-            }
+            })
+            img2.decode().then(() => {//trigger function once image loaded
+                if(!_this.isLoaded) {
+                    _this.loadedSlides += 1;//count loaded images
+                    if(_this.loadedSlides == 2*_this.options.nSlides) {//if all images are loaded set spin.isLoaded to true;
+                        console.log(_this.loadedSlides);
+                        if(img.complete) {  
+                            _this.isLoaded = true;
+                            _this.flyTo(0,1);
+                            if(_this.doAfterLoad) {//if there any functions that was called before images were load it will be stored as spin.doAfterLoad
+                                _this.doAfterLoad();//run function
+                            }
+                       }
+                    }
+                }
+            })
+            
+            img.src = 'src/src1/'+src+'.jpg';
+            img2.src = 'src/src2/'+src+'.jpg';//set src  
         }
-
     },
     play: function(velocity) {//slide per second
 
@@ -77,11 +95,19 @@ Spin.prototype = {
                 _this.wrapper2.children[_this.currentSlide].style.zIndex = 100;
 
             }, timeInterval);  
-        } else {
-            this.doAfterLoad = function() {
-                _this.play(velocity);
-            }
         }
+    },
+    doAfterLoad: function() {
+        var _this = this;
+
+        _this.wrapper.style.opacity = 1;
+        _this.wrapper2.style.opacity = 1;
+        
+        console.log('finish');
+        var loader = document.querySelector('.loader');
+        loader.parentNode.removeChild(loader);
+
+        _this.play(velocity);
     },
     stop: function(interval) {
         if(interval)
@@ -97,14 +123,17 @@ Spin.prototype = {
         this.prevSlide = 0;
 
         this.wrapper.parentNode.addEventListener('mousedown', function(e) {
-            _this.isMoving = true;
-            _this.startX = e.clientX;
-            _this.prevSlide = _this.currentSlide;
-            _this.stop(_this.playInterval);
-            _this.stop(_this.flyInterval);
+            if(_this.isLoaded) {
+                _this.isMoving = true;
+                _this.startX = e.clientX;
+                _this.prevSlide = _this.currentSlide;
+                _this.stop(_this.playInterval);
+                _this.stop(_this.flyInterval);
+            }
         });
 
         this.wrapper.parentNode.addEventListener('mouseup', function(e) {
+            if(_this.isLoaded) {
             _this.prevSlide = _this.currentSlide;
             if(e.clientX === _this.startX) {
                 if(!_this.isPaused) {
@@ -121,14 +150,19 @@ Spin.prototype = {
                 _this.isPaused = true;
             }
             _this.isMoving = false;
+            }
         });
         
         this.wrapper.parentNode.addEventListener('touchstart', function(e) {
+            
+            if(_this.isLoaded) {
             e.preventDefault();
             _this.startX = e.touches[0].clientX;
+            }
         });
 
         this.wrapper.parentNode.addEventListener('touchmove', function(e) {
+            if(_this.isLoaded) {
             e.preventDefault();
             var splitter = document.querySelector("#splitter");
                 
@@ -137,9 +171,11 @@ Spin.prototype = {
             splitter.style.left = x + "px";
             _this.wrapper2.style.width = x + "px";
             console.log('move');
+            }
         }); 
 
         this.wrapper.parentNode.addEventListener('touchend', function(e) {
+            if(_this.isLoaded) {
             e.preventDefault();
             _this.prevSlide = _this.currentSlide;
             if(e.changedTouches[0].clientX === _this.startX) {
@@ -155,9 +191,12 @@ Spin.prototype = {
                     console.log('pause');
                 }
             }
+            }
         });
 
         this.wrapper.parentNode.addEventListener('mousemove', function(e) {
+            
+            if(_this.isLoaded) {
             if(_this.isMoving === true) {
 
                 var x = e.clientX;
@@ -195,6 +234,7 @@ Spin.prototype = {
                 var x0 = e.currentTarget.getBoundingClientRect().left;
                 splitter.style.left = x + "px";
                 _this.wrapper2.style.width = x + "px";
+            }
             }
         });
     },
@@ -266,9 +306,13 @@ Spin.prototype = {
 
 var requestInterval = function (fn, delay) {
     var requestAnimFrame = (function () {
-        return window.requestAnimationFrame || function (callback, element) {
-            window.setTimeout(callback, 1000 / 60);
-        };
+        return window.requestAnimationFrame ||
+                window.mozRequestAnimationFrame || 
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback, element) {
+                    window.setTimeout(callback, 1000 / 20);
+                };
     })(),
     start = new Date().getTime(),
     handle = {};

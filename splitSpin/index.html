@@ -7,24 +7,200 @@
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
 <body>
-    <div>
-        <div id="SPIN1"></div>
-        <div id="SPIN2"></div>
-        <div id="splitter"></div>
-    </div>
-    <script src="spin.js"></script>
-    <script>
-        var spin = new Spin(document.getElementById('SPIN1'), 
-                             document.getElementById('SPIN2'),{
-            nSlides:84,
-            pattern:'DJI_00',
-            moveToAnchors   : true,
-            anchors         : [1,23,53,73],
-            velocity        : 10
-        });
-        spin.play(30);
-    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" type='text/javascript'></script>
+<script src='https://unpkg.com/spritespin@4.0.3/release/spritespin.js' type='text/javascript'></script>
 
+<section class="splitSpin">
+
+    <div class="spin-wrap"  id="spin-wrap1">
+        <div id="splitter"></div>
+        <div id='spin1'></div>
+    </div>   
+
+    <div class="spin-wrap" id="spin-wrap2">
+        <div id='spin2'></div>
+    </div>
+
+    <div class="overlay-loader">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+</section>
+
+<select id="monthSelect1">
+    <option value="jan">Січень</option>
+    <option value="feb">Лютий</option>
+</select>
+
+<select id="monthSelect2">
+    <option value="jan">Січень</option>
+    <option value="feb">Лютий</option>
+</select>
+    
+<script type='text/javascript'>
+    var frameNumb = 0,
+        splitSpin = document.querySelector(".splitSpin"),
+        spin1 = $("#spin1"),
+        spin2 = $("#spin2"),
+        splitter = document.querySelector("#splitter");
+        SPIN2 = document.querySelector("#spin-wrap2"),
+        monthSelect1 = document.querySelector("#monthSelect1");
+        monthSelect2 = document.querySelector("#monthSelect2"),
+        loader = document.querySelector(".overlay-loader");
+
+    spin1.spritespin({
+        animate: false,
+        source: SpriteSpin.sourceArray("./src/src1/DJI_00{frame}.jpg", {
+            frame: [0, 84],
+            digits: 2
+        }),
+        onLoad: function() {
+            loader.style.display = "none";
+        },
+        responsive: true,
+    });
+    var api1 = spin1.spritespin("api");
+    
+    spin2.spritespin({
+        source: SpriteSpin.sourceArray("./src/src2/DJI_00{frame}.jpg", {
+            frame: [0, 84],
+            digits: 2
+        }),
+        onFrame: function(event,  args) {
+            api1.data.frame = args.frame;
+            frameNumb = args.frame;
+            api1.updateFrame();
+        },
+        onLoad: function() {
+            loader.style.display = "none";
+        },
+        loop: true,
+        frameTime: 80,
+        responsive: true,
+    });
+    var api2 = spin2.spritespin("api");
+
+    var startX = 0,
+        splitBlock = false;
+
+    monthSelect1.addEventListener('change', function(e){
+        if("./src/"+this.value+"/DJI_00{frame}.jpg") {
+            spin2.spritespin({
+                source: SpriteSpin.sourceArray("./src/"+this.value+"/DJI_00{frame}.jpg", {
+                    frame: [0, 84],
+                    digits: 2
+                })
+            });
+
+            loader.style.display = "block";
+        }
+    });
+
+    monthSelect2.addEventListener('change', function(e){
+        if("./src/"+this.value+"/DJI_00{frame}.jpg") {
+            spin1.spritespin({
+                source: SpriteSpin.sourceArray("./src/"+this.value+"/DJI_00{frame}.jpg", {
+                    frame: [0, 84],
+                    digits: 2
+                })
+            });
+
+            loader.style.display = "block";
+        }
+    });
+
+    splitSpin.addEventListener('mouseup',function(e) {
+        e.stopPropagation();
+        api2.toggleAnimation(true);
+
+
+        var currrentFrame = frameNumb;
+        frameNumb > 107 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(0, !1)
+        }) : frameNumb > 0 && frameNumb <= 10 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(0, !1)
+        }) : frameNumb > 10 && frameNumb <= 22 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(22, !1)
+        }) : frameNumb > 22 && frameNumb <= 41 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(22, !1)
+        }) : frameNumb > 41 && frameNumb <= 52 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(52, !1)
+        }) : frameNumb > 52 && frameNumb <= 61 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(52, !1)
+        }) : frameNumb > 61 && frameNumb <= 72 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(72, !1)
+        }) : frameNumb > 72 && frameNumb <= 87 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(72, !1)
+        }) : frameNumb > 87 && frameNumb <= 103 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(103, !1)
+        }) : frameNumb > 103 && frameNumb <= 107 && setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(103, !1)
+        })
+    });
+
+    splitSpin.addEventListener('touchend', function(e) {
+        e.stopPropagation();
+        api2.toggleAnimation(true);
+        
+        var currrentFrame = frameNumb;
+        frameNumb > 107 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(0, !1)
+        }) : frameNumb > 0 && frameNumb <= 10 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(0, !1)
+        }) : frameNumb > 10 && frameNumb <= 22 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(22, !1)
+        }) : frameNumb > 22 && frameNumb <= 41 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(22, !1)
+        }) : frameNumb > 41 && frameNumb <= 52 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(52, !1)
+        }) : frameNumb > 52 && frameNumb <= 61 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(52, !1)
+        }) : frameNumb > 61 && frameNumb <= 72 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(72, !1)
+        }) : frameNumb > 72 && frameNumb <= 87 ? setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(72, !1)
+        }) : frameNumb > 87 && frameNumb <= 103 ? setTimeout(function() {
+            api2.data.reverse = !1, api2.playTo(103, !1)
+        }) : frameNumb > 103 && frameNumb <= 107 && setTimeout(function() {
+            api2.data.reverse = !0, api2.playTo(103, !1)
+        })
+    });
+
+    splitSpin.addEventListener('mousemove', function(e){
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        
+        var x = e.clientX;
+        var x0 = e.currentTarget.getBoundingClientRect().left;
+        splitter.style.left = x + "px";
+        SPIN2.style.width = x + "px";
+    });
+
+    splitSpin.addEventListener('touchmove', function(e){
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        
+        var x = e.changedTouches[0].clientX;
+        var x0 = e.currentTarget.getBoundingClientRect().left;
+        splitter.style.left = x + "px";
+        SPIN2.style.width = x + "px";
+    });
+    
+        spin1.unbind('touchmove');
+        spin1.unbind('mousemove');
+        
+        spin2.unbind('touchmove');
+        spin2.unbind('mousemove');
+        
+</script>
 </body>
 </html>
 
