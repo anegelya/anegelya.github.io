@@ -1,3 +1,9 @@
+section {
+	position: relative;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +11,26 @@
     -webkit-user-select: none;
 }
 
+html {
+	background-color: #202020;
+	color: #fff;
+	font-family: 'Fira Sans', sans-serif;
+	font-weight: 900;
+}
+
+h1 {
+	text-align: center;
+	margin: .5em 0 1em 0;
+}
+
 .splitSpin {
   position: relative;
   width: 100%;
-  height: fit-content;
+	max-width: 800px;
+  height: auto;
+	max-height: 600px;
+	min-height: 75vw;
+	margin: auto;
 }
 
 #splitter {
@@ -40,6 +62,7 @@
 #spin1,
 #spin2 {
     width: 100vw;
+	max-width: 800px;
 }
 
 #monthSelect {
@@ -196,5 +219,78 @@
 	}
 	to {
 		-moz-transform: rotate(0deg);
+	}
+}
+
+
+
+.monthSelector {
+	max-width: 24em;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	top: .5em;
+	margin: 0 auto;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 101;
+}
+
+ /*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+	width: 49%;
+}
+.custom-select select {
+  display: none; /*hide original SELECT element:*/ */
+}
+.select-selected {
+  background-color: rgba(0, 0, 0, .7);
+}
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+} 
+
+@media(min-width: 800px) {
+	.splitSpin {
+		min-height: 600px;
 	}
 }
